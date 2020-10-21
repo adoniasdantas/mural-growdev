@@ -41,10 +41,10 @@ class RecadoController extends Controller
     public function store(Request $request)
     {
         Recado::create($request->validate([
-            'texto' => ['required', 'min:20']
+            'texto' => ['required', 'string', 'min:20']
         ], [
             'required' => 'Este campo é obrigatório',
-            'min' => 'Este campo deve ter, no mínimo, :size caracteres'
+            'min' => 'Este campo deve ter, no mínimo, :min caracteres'
         ]));
 
         return redirect()->route('index')->with('success', 'Seu recado foi salvo!');
@@ -93,7 +93,6 @@ class RecadoController extends Controller
     public function destroy(Recado $recado)
     {
         $recado->delete();
-        session()->push('success', 'Seu recado foi excluído!');
-        return new JsonResponse('', 200);
+        return redirect()->route('index')->with('success', 'Seu recado foi excluído!');
     }
 }

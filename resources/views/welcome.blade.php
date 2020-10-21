@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>{{ env('APP_NAME') }}</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -74,11 +74,11 @@
             </form>
         </div>
 
-        <div class="grid grid-cols-3 gap-4 justify-items-stretch">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-items-stretch">
             @forelse($recados as $recado)
                 <div class="flex justify-center items-center p-6 bg-yellow-400 rounded-lg shadow-xl ">
-                    <p class="text-base text-gray-900 leading-normal">{{ $recado->texto }}</p>
-                    <a href="javascript:void(0)" onclick="if(confirm('Deseja excluir a acomodação?'))document.getElementById('destroy-{{ $recado->id }}').submit()"
+                    <p class="text-base text-gray-900 leading-normal break-all">{{ $recado->texto }}</p>
+                    <a href="javascript:void(0)" onclick="if(confirm('Deseja excluir o recado?'))document.getElementById('destroy-{{ $recado->id }}').submit()"
                         class="bg-yellow-400 text-gray-900 font-bold py-2 px-4 rounded inline-flex items-center flex-shrink-0"
                         title="Excluir">
                         <svg class="fill-current w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -94,9 +94,9 @@
                     </form>
                 </div>
             @empty
-            <div class="max-w-sm mx-auto my-6 flex p-6 bg-white rounded-lg shadow-xl flex-auto">
-                <p class="text-base text-gray-900 leading-normal">Não há recados cadastrados!</p>
-            </div>
+                <div class="flex justify-center items-center p-6 bg-white rounded-lg shadow-xl ">
+                    <p class="text-base text-gray-900 leading-normal">Não há recados cadastrados!</p>
+                </div>
             @endforelse
         </div>
     </div>

@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('/',  RecadoController::class)->except([
-    'create', 'show', 'edit', 'update'
+Route::resource('/',  RecadoController::class)->only([
+    'index', 'store'
 ]);
+
+Route::delete('/{recado}', RecadoController::class.'@destroy')->name('destroy');
