@@ -76,7 +76,7 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-items-stretch">
             @forelse($recados as $recado)
-                <div class="flex justify-center items-center p-6 bg-yellow-400 rounded-lg shadow-xl ">
+                <div class="flex justify-center items-center p-6 bg-yellow-400 rounded-lg shadow-xl mx-auto">
                     <p class="text-base text-gray-900 leading-normal break-all">{{ $recado->texto }}</p>
                     <a href="javascript:void(0)" onclick="if(confirm('Deseja excluir o recado?'))document.getElementById('destroy-{{ $recado->id }}').submit()"
                         class="bg-yellow-400 text-gray-900 font-bold py-2 px-4 rounded inline-flex items-center flex-shrink-0"
@@ -94,7 +94,7 @@
                     </form>
                 </div>
             @empty
-                <div class="flex justify-center items-center p-6 bg-white rounded-lg shadow-xl ">
+                <div class="flex justify-center p-6 bg-white rounded-lg shadow-xl col-span-3 mx-auto">
                     <p class="text-base text-gray-900 leading-normal">Não há recados cadastrados!</p>
                 </div>
             @endforelse
