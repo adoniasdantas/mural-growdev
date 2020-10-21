@@ -1,0 +1,69 @@
+version: '3'
+services:
+  #PHP Service
+  app:
+    build: .
+    tty: true
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - mural-network
+
+  #Nginx Service
+  web:
+    image: nginx:alpine
+    restart: unless-stopped
+    tty: true
+    working_dir: /var/www
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./:/var/www
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - mural-network
+
+  #Postgres Service
+  db:
+    image: postgres:alpine
+    tty: true
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}
+      SERVICE_NAME: postgres
+      SERVICE_TAGS: dev
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - mural-network
+
+  #PGAdmin Service
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - "8080:80"
+    environment:
+      SERVICE_NAME: pgadmin
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    networks:
+      - mural-network
+
+#Docker Networks
+networks:
+  mural-network:
+    driver: bridge
+
+#Volumes
+volumes:
+  pgdata:
+    driver: local
